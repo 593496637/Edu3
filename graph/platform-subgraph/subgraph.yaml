@@ -27,6 +27,4 @@ dataSources:
           handler: handleCourseCreated
         - event: CoursePurchased(indexed uint256,indexed address,indexed address)
           handler: handleCoursePurchased
-        - event: OwnershipTransferred(indexed address,indexed address)
-          handler: handleOwnershipTransferred
       file: ./src/course-platform.ts

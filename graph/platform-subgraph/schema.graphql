@@ -1,28 +1,18 @@
-type CourseCreated @entity(immutable: true) {
-  id: Bytes!
-  courseId: BigInt! # uint256
-  creator: Bytes! # address
-  priceInYd: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
+type Course @entity(immutable: false) {
+  "课程的链上ID (uint256)"
+  id: ID!
+  creator: User!
+  priceInYd: BigInt!
+  createdAtTimestamp: BigInt!
+  "购买了此课程的学生列表"
+  purchasers: [User!]! @derivedFrom(field: "coursesOwned")
 }
 
-type CoursePurchased @entity(immutable: true) {
-  id: Bytes!
-  courseId: BigInt! # uint256
-  student: Bytes! # address
-  creator: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type OwnershipTransferred @entity(immutable: true) {
-  id: Bytes!
-  previousOwner: Bytes! # address
-  newOwner: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
+type User @entity(immutable: false) {
+  "用户的钱包地址"
+  id: ID!
+  "该用户创建的课程列表"
+  coursesCreated: [Course!]! @derivedFrom(field: "creator")
+  "该用户购买的课程列表"
+  coursesOwned: [Course!]!
 }
