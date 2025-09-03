@@ -41,6 +41,7 @@ lerna-debug.log*
 # pnpm 相关
 .pnpm-debug.log*
 .pnpm-store/
+pnpm-workspace.yaml.lock
 
 # 构建产物
 dist/
@@ -96,14 +97,25 @@ keystore/
 artifacts/
 cache/
 types/
+typechain/
+typechain-types/
+
+# Hardhat 特定文件
+.hardhat/
+contracts/artifacts/
+contracts/cache/
+contracts/typechain/
+contracts/typechain-types/
 
 # 部署脚本生成的文件
 deployments/
 .openzeppelin/
 broadcasts/
+ignition/deployments/
 
 # Gas报告
 gas-report.txt
+.gas-snapshot
 
 # ==============================================
 # 后端开发
@@ -114,6 +126,15 @@ gas-report.txt
 *.sqlite
 *.sqlite3
 db.json
+
+# PostgreSQL 数据目录 (Docker Compose)
+postgres-data/
+pgdata/
+
+# Docker 相关文件
+docker-compose.override.yml
+.docker/
+*.dockerfile.local
 
 # 日志文件
 logs/
@@ -206,6 +227,13 @@ NOTES.md
 scratch/
 experiments/
 
+# Edu3 项目特定文件
+backend/postgres-data/
+frontend/dist/
+frontend/build/
+graph/build/
+graph/generated/
+
 # 构建脚本生成的压缩包
 *.tar.gz
 *.zip
@@ -213,3 +241,7 @@ experiments/
 # 备份文件
 *.backup
 *.bak
+
+# 本地配置覆盖文件
+docker-compose.local.yml
+.env.local.*

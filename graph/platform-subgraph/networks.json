@@ -1,0 +1,8 @@
+{
+  "sepolia": {
+    "CoursePlatform": {
+      "address": "0x0000000000000000000000000000000000000000",
+      "startBlock": 9118862
+    }
+  }
+}

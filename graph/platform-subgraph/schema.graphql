@@ -1,0 +1,28 @@
+type CourseCreated @entity(immutable: true) {
+  id: Bytes!
+  courseId: BigInt! # uint256
+  creator: Bytes! # address
+  priceInYd: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type CoursePurchased @entity(immutable: true) {
+  id: Bytes!
+  courseId: BigInt! # uint256
+  student: Bytes! # address
+  creator: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type OwnershipTransferred @entity(immutable: true) {
+  id: Bytes!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
