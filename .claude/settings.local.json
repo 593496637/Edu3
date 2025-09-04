@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx hardhat console:*)",
+      "Bash(npx hardhat run:*)",
+      "Bash(npx hardhat accounts:*)",
+      "WebSearch",
+      "Bash(npx hardhat:*)",
+      "WebFetch(domain:hardhat.org)",
+      "Bash(pnpm init:*)",
+      "Bash(pnpm add:*)",
+      "Bash(pnpm compile:*)",
+      "Bash(pnpm pkg set:*)",
+      "Bash(pnpm remove:*)",
+      "Read(/D:\\learn\\Edu3\\contracts\\contracts/**)",
+      "Read(/D:\\learn\\Edu3\\contracts\\contracts/**)",
+      "Read(/D:\\learn\\Edu3\\contracts/**)",
+      "Read(/D:\\learn\\Edu3/**)",
+      "Read(/D:\\learn\\Edu3\\contracts/**)",
+      "Read(/D:\\learn\\Edu3\\contracts\\contracts/**)",
+      "Read(/D:\\learn\\Edu3\\contracts/**)",
+      "Read(/D:\\learn\\Edu3\\contracts\\ignition\\modules/**)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
