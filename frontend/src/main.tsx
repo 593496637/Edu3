@@ -5,19 +5,29 @@ import "./index.css";
 
 // 1. 从 wagmi 和相关库中导入所需模块
 import { WagmiProvider, createConfig, http } from "wagmi";
-import { sepolia } from "wagmi/chains"; // 我们将使用 Sepolia 测试网
+import { mainnet, sepolia, polygon, arbitrum, base } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { injected } from "wagmi/connectors";
+import { injected, metaMask, coinbaseWallet } from "wagmi/connectors";
 
 // 2. 创建 QueryClient 实例（wagmi v2 要求）
 const queryClient = new QueryClient();
 
 // 3. 创建 wagmi config
 const config = createConfig({
-  chains: [sepolia],
-  connectors: [injected()],
+  chains: [sepolia, mainnet, polygon, arbitrum, base],
+  connectors: [
+    injected(),
+    metaMask(),
+    coinbaseWallet({
+      appName: 'Web3 University',
+    }),
+  ],
   transports: {
     [sepolia.id]: http(),
+    [mainnet.id]: http(),
+    [polygon.id]: http(),
+    [arbitrum.id]: http(),
+    [base.id]: http(),
   },
 });
 

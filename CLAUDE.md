@@ -91,17 +91,54 @@ pnpm deploy-local
 ## Key Contract Architecture
 
 ### Core Smart Contracts
-- **YDToken.sol**: ERC-20 token used as platform currency
-- **CoursePlatform.sol**: Main platform contract handling course creation and purchases
+- **YDToken.sol**: ERC-20 token with bidirectional ETH exchange capabilities
+- **CoursePlatform.sol**: Main platform contract with instructor management and platform fees
+- **AaveAdapter.sol**: DeFi yield farming integration for AAVE V3 protocol
 
 ### Key Contract Functions
-- `createCourse(uint256 courseId, uint256 priceInYd)`: Creates a new course on-chain
-- `purchaseCourse(uint256 courseId)`: Purchase course with YD tokens
+
+#### CoursePlatform.sol
+- `createCourse(uint256 courseId, uint256 priceInYd)`: Creates a new course on-chain (requires instructor approval)
+- `purchaseCourse(uint256 courseId)`: Purchase course with YD tokens (includes platform fee)
+- `deleteCourse(uint256 courseId)`: Delete unpurchased course (creator only)
+- `setPlatformFeeRate(uint256 newFeeRate)`: Update platform fee rate (owner only, max 10%)
+- `setPlatformTreasury(address newTreasury)`: Update platform treasury address (owner only)
+- `approveInstructor(address instructor)`: Approve instructor (admin only)
+- `revokeInstructor(address instructor)`: Revoke instructor approval (admin only)
 - `courseOwnership[courseId][student]`: Mapping to check course ownership
 
+#### YDToken.sol
+- `exchangeEthForYd()`: Convert ETH to YD tokens at 1:1000 rate (payable)
+- `exchangeYdForEth(uint256 ydAmount)`: Convert YD tokens back to ETH
+- `setExchangeEnabled(bool enabled)`: Enable/disable token exchange (owner only)
+- `withdrawEth(uint256 amount)`: Withdraw specific ETH amount (owner only)
+- `withdrawAllEth()`: Withdraw all ETH from contract (owner only)
+- `depositEth()`: Allow owner to deposit ETH for reverse exchanges (payable)
+
+#### AaveAdapter.sol (Optional DeFi Integration)
+- `depositETH()`: Stake ETH to AAVE for yield (payable)
+- `withdrawETH(uint256 amount)`: Withdraw ETH from AAVE
+- `depositERC20(address asset, uint256 amount)`: Stake ERC20 tokens to AAVE
+- `withdrawERC20(address asset, uint256 amount)`: Withdraw ERC20 from AAVE
+- `getUserAccountData(address user)`: Get user's AAVE account information
+- `addSupportedAsset(address asset)`: Add new asset for staking (owner only)
+
 ### Events
+
+#### CoursePlatform Events
 - `CourseCreated(uint256 indexed courseId, address indexed creator, uint256 priceInYd)`
 - `CoursePurchased(uint256 indexed courseId, address indexed student, address indexed creator)`
+- `CourseDeleted(uint256 indexed courseId, address indexed creator)`
+- `PlatformFeeCollected(uint256 indexed courseId, address indexed from, uint256 feeAmount)`
+- `PlatformFeeRateUpdated(uint256 oldRate, uint256 newRate)`
+- `PlatformTreasuryUpdated(address indexed oldTreasury, address indexed newTreasury)`
+- `InstructorApproved(address indexed instructor)`
+- `InstructorRevoked(address indexed instructor)`
+
+#### YDToken Events
+- `ExchangedEthForYd(address indexed user, uint256 ethAmount, uint256 ydAmount)`
+- `ExchangedYdForEth(address indexed user, uint256 ydAmount, uint256 ethAmount)`
+- `ExchangeStatusUpdated(bool enabled)`
 
 ## Database Schema (PostgreSQL)
 
@@ -118,8 +155,17 @@ The backend uses PostgreSQL with the following key table:
 
 ## Backend API Endpoints
 
+### Course Management
+- `GET /courses`: Get all courses list (for homepage display)
 - `POST /courses`: Create new course metadata
 - `GET /courses/:id`: Get course details (supports both UUID and chain_id)
+- `DELETE /courses/:id`: Delete course (supports both UUID and chain_id)
+
+### Instructor Applications
+- `POST /instructor-applications`: Submit instructor application
+- `GET /instructor-applications`: Get all applications (admin use)
+- `GET /instructor-applications/my/:address`: Get applications by address
+- `PUT /instructor-applications/:id`: Review application (admin use)
 
 ## Development Workflow
 
@@ -148,9 +194,22 @@ The backend uses PostgreSQL with the following key table:
 
 ## Deployment Information
 
-- **Network**: Sepolia testnet
+### Current Deployment (Sepolia Testnet)
+- **Network**: Sepolia testnet (Chain ID: 11155111)
+- **YDToken Contract**: `0x66d81ddC9259DEC4cD2FCEfd101C3AA29110FbF9`
 - **CoursePlatform Contract**: `0x537feaEaAe0B3B2dF87AfB3cA349C1fd118DbCf8`
 - **Subgraph Start Block**: `9118862`
+
+### Contract Features Status
+- **Basic Course Management**: ✅ Deployed (old version)
+- **Platform Fee System**: ⚠️ Available in code, needs new deployment
+- **Bidirectional Token Exchange**: ⚠️ Available in code, needs new deployment  
+- **AAVE Integration**: ⚠️ Available in code, needs new deployment
+- **Instructor Management**: ⚠️ Available in code, needs new deployment
+
+### Etherscan Links
+- [YDToken Contract](https://sepolia.etherscan.io/address/0x66d81ddC9259DEC4cD2FCEfd101C3AA29110FbF9)
+- [CoursePlatform Contract](https://sepolia.etherscan.io/address/0x537feaEaAe0B3B2dF87AfB3cA349C1fd118DbCf8)
 
 ## Key Dependencies
 

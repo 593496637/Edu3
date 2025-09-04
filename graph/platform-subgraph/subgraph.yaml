@@ -18,6 +18,9 @@ dataSources:
       entities:
         - CourseCreated
         - CoursePurchased
+        - CourseDeleted
+        - PlatformFee
+        - PlatformStats
         - OwnershipTransferred
       abis:
         - name: CoursePlatform
@@ -27,4 +30,12 @@ dataSources:
           handler: handleCourseCreated
         - event: CoursePurchased(indexed uint256,indexed address,indexed address)
           handler: handleCoursePurchased
+        - event: CourseDeleted(indexed uint256,indexed address)
+          handler: handleCourseDeleted
+        - event: PlatformFeeCollected(indexed uint256,indexed address,uint256)
+          handler: handlePlatformFeeCollected
+        - event: PlatformFeeRateUpdated(uint256,uint256)
+          handler: handlePlatformFeeRateUpdated
+        - event: PlatformTreasuryUpdated(indexed address,indexed address)
+          handler: handlePlatformTreasuryUpdated
       file: ./src/course-platform.ts

@@ -22,7 +22,19 @@
       "Read(/D:\\learn\\Edu3\\contracts\\ignition\\modules/**)",
       "Read(/D:\\learn\\Edu3\\graph/**)",
       "Read(/D:\\learn\\Edu3\\frontend\\src\\components/**)",
-      "Read(/D:\\learn\\Edu3\\frontend/**)"
+      "Read(/D:\\learn\\Edu3\\frontend/**)",
+      "Bash(pnpm dev:*)",
+      "Bash(pnpm lint:*)",
+      "Bash(node server.js)",
+      "Bash(curl:*)",
+      "Bash(docker-compose up:*)",
+      "Bash(lsof:*)",
+      "Bash(kill:*)",
+      "Bash(pnpm install:*)",
+      "Bash(pnpm codegen:*)",
+      "Bash(pnpm build:*)",
+      "Bash(find:*)",
+      "Bash(echo:*)"
     ],
     "deny": [],
     "ask": []

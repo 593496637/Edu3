@@ -18,6 +18,7 @@ export const GET_ALL_COURSES = gql`
       }
       priceInYd
       createdAtTimestamp
+      purchaseCount
     }
   }
 `;

@@ -6,6 +6,8 @@ type Course @entity(immutable: false) {
   createdAtTimestamp: BigInt!
   "购买了此课程的学生列表"
   purchasers: [User!]! @derivedFrom(field: "coursesOwned")
+  "课程的购买人数"
+  purchaseCount: BigInt!
 }
 
 type User @entity(immutable: false) {
@@ -15,4 +17,22 @@ type User @entity(immutable: false) {
   coursesCreated: [Course!]! @derivedFrom(field: "creator")
   "该用户购买的课程列表"
   coursesOwned: [Course!]!
+}
+
+type PlatformFee @entity(immutable: true) {
+  "交易ID"
+  id: ID!
+  courseId: BigInt!
+  course: Course!
+  payer: User!
+  feeAmount: BigInt!
+  timestamp: BigInt!
+}
+
+type PlatformStats @entity(immutable: false) {
+  "平台统计，ID固定为'platform'"
+  id: ID!
+  totalFees: BigInt!
+  feeRate: BigInt!
+  treasury: Bytes!
 }
