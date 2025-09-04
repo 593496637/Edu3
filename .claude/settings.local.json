@@ -19,7 +19,10 @@
       "Read(/D:\\learn\\Edu3\\contracts/**)",
       "Read(/D:\\learn\\Edu3\\contracts\\contracts/**)",
       "Read(/D:\\learn\\Edu3\\contracts/**)",
-      "Read(/D:\\learn\\Edu3\\contracts\\ignition\\modules/**)"
+      "Read(/D:\\learn\\Edu3\\contracts\\ignition\\modules/**)",
+      "Read(/D:\\learn\\Edu3\\graph/**)",
+      "Read(/D:\\learn\\Edu3\\frontend\\src\\components/**)",
+      "Read(/D:\\learn\\Edu3\\frontend/**)"
     ],
     "deny": [],
     "ask": []
